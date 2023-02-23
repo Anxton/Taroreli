@@ -17,7 +17,11 @@ export class PartieService {
 
   public getParties(): Observable<Partie[]> {
     return new Observable<Partie[]>(obs => {
-      obs.next([new Partie(), new Partie()])
+      const a = new Partie()
+      a.id = 1
+      const b = new Partie()
+      b.id = 2
+      obs.next([a, b])
       obs.complete()
     })
     // return this.http.get<Partie[]>(this.partieAPI)

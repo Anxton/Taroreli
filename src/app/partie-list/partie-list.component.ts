@@ -12,7 +12,7 @@ import { EtatChargement } from '../models/loader';
 export class PartieListComponent {
 
   public parties!: Observable<Partie[]>
-  public etat : EtatChargement = EtatChargement.LOADING
+  public partiesLoadEtat : EtatChargement = EtatChargement.LOADING
 
   readonly etatChargement = EtatChargement
 
@@ -24,8 +24,8 @@ export class PartieListComponent {
   ngOnInit(): void {
     this.parties = this.partieService.getParties()
     this.parties.subscribe({
-      next: p => this.etat = EtatChargement.LOADED,
-      error: err => this.etat = EtatChargement.ERROR
+      next: p => this.partiesLoadEtat = EtatChargement.LOADED,
+      error: err => this.partiesLoadEtat = EtatChargement.ERROR
     })
   }
 }

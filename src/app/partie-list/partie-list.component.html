@@ -1,6 +1,18 @@
-<p>partie-list works!</p>
+<div *ngIf="partiesLoadEtat==etatChargement.LOADING">
+    <div class="alert alert-info">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><strong> Chargement en cours...</strong><br> Merci de patienter quelques instants
+    </div>
+  </div>
+  <div *ngIf="partiesLoadEtat==etatChargement.ERROR">
+    <div class="alert alert-danger">
+      <strong>Service non disponible</strong><br> Veuillez réessayer dans quelques instants
+    </div>
+  </div>
+  <div *ngIf="partiesLoadEtat==etatChargement.LOADED">
 
-<app-partie-item [partie]="partie" *ngFor="let partie of (parties|async)">
+    <h2> <b>{{ (parties|async)?.length }}</b> parties jouées</h2><br>
 
-</app-partie-item>
+    <app-partie-item [partie]="partie" *ngFor="let partie of (parties|async)"></app-partie-item>
+
+  </div>
 

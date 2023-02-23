@@ -1,30 +1,51 @@
-<div class="card d-flex justify-content-between p-3 pt-0 m-3 gap-2">
+<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2">
     <div class="card-body">
-        <h4 class="card-title">Partie n°{{partie.id}}</h4>
-        <small class="text-muted">{{partie.date}}</small>
-        <p class="card-text">{{partie.joueurs}}</p>
+      <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i>Partie n°{{partie.id}} </h4>
+        <small class="text-muted">{{partie.date.toLocaleString()}} <i class="fa-solid fa-calendar-days"></i></small>
+        <p class="card-text">{{partie.joueurs.join(" | ")}}</p>
     </div>
 
-    <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion accordion-flush" [id]="'accordion'+partie.id">
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+          <button class="accordion-button collapsed" (click)="loadManches()" type="button" data-bs-toggle="collapse" attr.data-bs-target="#id{{partie.id}}" aria-expanded="true" attr.aria-controls="{{partie.id}}">
             Manches
           </button>
         </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">
-            This is the first item's accordion body.
+        <div [id]="'id'+partie.id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" attr.data-bs-parent="#accordion{{partie.id}}">
+          <!-- start accordion -->
+          <div *ngIf="mancheLoadEtat==etatChargement.LOADING">
+            <div class="alert alert-info">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><strong> Chargement en cours...</strong><br> Merci de patienter quelques instants
+            </div>
           </div>
-          <div class="accordion-body">
-            This is the first item's accordion body.
+          <div *ngIf="mancheLoadEtat==etatChargement.ERROR">
+            <div class="alert alert-danger">
+              <strong>Service non disponible</strong><br> Veuillez réessayer dans quelques instants
+            </div>
           </div>
-          <div class="accordion-body">
-            This is the first item's accordion body.
+          <div *ngIf="mancheLoadEtat==etatChargement.LOADED">
+
+            <h2> <b>{{ (manches|async)?.length }}</b> manches jouées</h2>
+
+              <!-- <app-partie-item-detail
+                  *ngFor="let manche of manches|async"
+                  [manche]="manche"></app-partie-item-detail> -->
+                  
+              <div class="accordion-body">
+                This is the first item's accordion body.
+              </div>
+              <div class="accordion-body">
+                This is the first item's accordion body.
+              </div>
+              <div class="accordion-body">
+                This is the first item's accordion body.
+              </div>
+              <div class="accordion-body">
+                This is the first item's accordion body.
+              </div>
           </div>
-          <div class="accordion-body">
-            This is the first item's accordion body.
-          </div>
+          <!-- end accordion -->
         </div>
       </div>
     </div>
