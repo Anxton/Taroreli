@@ -8,6 +8,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { PartieItemComponent } from './partie-item/partie-item.component';
 import { PartieListComponent } from './partie-list/partie-list.component';
 import { PartieEditComponent } from './partie-edit/partie-edit.component';
+import { PartieItemMancheComponent } from './partie-item-manche/partie-item-manche.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PartieEditComponent } from './partie-edit/partie-edit.component';
     MainMenuComponent,
     PartieItemComponent,
     PartieListComponent,
-    PartieEditComponent
+    PartieEditComponent,
+    PartieItemMancheComponent
   ],
   imports: [
     BrowserModule,

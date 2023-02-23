@@ -1,8 +1,11 @@
-<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2">
+<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100">
     <div class="card-body">
       <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i>Partie n°{{partie.id}} </h4>
-        <small class="text-muted">{{partie.date.toLocaleString()}} <i class="fa-solid fa-calendar-days"></i></small>
-        <p class="card-text">{{partie.joueurs.join(" | ")}}</p>
+        <small class="text-muted">{{partie.date}} <i class="fa-solid fa-calendar-days"></i></small>
+        <div class="d-flex justify-content-between">
+          <span *ngFor="let joueur of partie.joueurs" class="card-text">{{joueur}}</span>
+
+        </div>
     </div>
 
     <div class="accordion accordion-flush" [id]="'accordion'+partie.id">
@@ -26,24 +29,23 @@
           </div>
           <div *ngIf="manchesLoadEtat==etatChargement.LOADED">
 
-            <h2> <b>{{ (manches|async)?.length }}</b> manches jouées</h2>
+            <div class="accordion-body">
+              <h4> <b>{{ (manches|async)?.length }}</b> manches jouées</h4>
+            </div>
 
-              <!-- <app-partie-item-detail
-                  *ngFor="let manche of manches|async"
-                  [manche]="manche"></app-partie-item-detail> -->
-                  
-              <div class="accordion-body">
-                This is the first item's accordion body.
-              </div>
-              <div class="accordion-body">
-                This is the first item's accordion body.
-              </div>
-              <div class="accordion-body">
-                This is the first item's accordion body.
-              </div>
-              <div class="accordion-body">
-                This is the first item's accordion body.
-              </div>
+            <app-partie-item-manche
+                *ngFor="let manche of manches|async"
+                [manche]="manche"></app-partie-item-manche>
+
+            <!-- <div class="accordion-body">
+              This is the first item's accordion body.
+            </div>
+            <div class="accordion-body">
+              This is the first item's accordion body.
+            </div>
+            <div class="accordion-body">
+              This is the first item's accordion body.
+            </div> -->
           </div>
           <!-- end accordion -->
         </div>

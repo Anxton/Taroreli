@@ -9,6 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class MancheService {
 
+  public manches: Manche[] = [
+    {
+      id: 1,
+      partieId: 1,
+      preneur: 2,
+      ptsPreneur: 33,
+      ptsDefense: -11
+    }
+
+  ]
+
   readonly mancheAPI = environment.apiUrl + "/manches"
 
   constructor(

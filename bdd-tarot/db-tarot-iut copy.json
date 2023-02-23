@@ -1,0 +1,32 @@
+{
+  "parties": [
+    {
+      "id": 1,
+      "descr": "Lundi matin 20/02/2013",
+      "joueurs": ["Laurent", "Marianne", "Marie", "Fabrice"],
+      "scores"  : [20,20,564,-604]
+    }
+  ],
+  "manches" : [
+      {
+        "id"       : 1,
+        "idPartie" : 1,
+        "scores"   : [-150,-150,450,-150]
+      },
+      {
+        "id"       : 2,
+        "idPartie" : 1,
+        "scores"   : [54,54,-162,54]
+      },
+      {
+        "id"       : 3,
+        "idPartie" : 1,
+        "scores"   : [-40,-40,120,-40]
+      },
+      {
+        "id"       : 4,
+        "idPartie" : 1,
+        "scores"   : [156,156,156,-468]
+      }
+    ]
+}

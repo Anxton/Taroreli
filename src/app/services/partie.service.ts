@@ -9,6 +9,27 @@ import { Observable } from 'rxjs';
 })
 export class PartieService {
 
+  private parties: Partie[] = [
+    {
+      id: 1,
+      date: new Date(),
+      joueurs: ['Albert', 'Jean', 'Philippe', 'Vincent'],
+      scores: [-11, -11, 33, -11]
+    },
+    {
+      id: 2,
+      date: new Date(),
+      joueurs: ['A', 'B', 'C', 'D'],
+      scores: [-555, 125, 1222, 1]
+    },
+    {
+      id: 3,
+      date: new Date(),
+      joueurs: ['1', '2', '3', '4'],
+      scores: [-999, -234, 52, 1]
+    }
+  ]
+
   readonly partieAPI = environment.apiUrl + "/parties"
 
   constructor(
@@ -16,15 +37,11 @@ export class PartieService {
   ) {}
 
   public getParties(): Observable<Partie[]> {
-    return new Observable<Partie[]>(obs => {
-      const a = new Partie()
-      a.id = 1
-      const b = new Partie()
-      b.id = 2
-      obs.next([a, b])
-      obs.complete()
-    })
-    // return this.http.get<Partie[]>(this.partieAPI)
+    return this.http.get<Partie[]>(this.partieAPI)
+    // this.parties.forEach(p => {
+
+    //   this.http.post<Partie>(this.partieAPI, p).subscribe({})
+    // })
   }
 
   public getPartie(id: number): Observable<Partie> {

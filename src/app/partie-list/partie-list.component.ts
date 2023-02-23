@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Partie } from './../models/partie';
 import { PartieService } from './../services/partie.service';
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { EtatChargement } from '../models/loader';
 
 @Component({
@@ -10,6 +10,8 @@ import { EtatChargement } from '../models/loader';
   styleUrls: ['./partie-list.component.css']
 })
 export class PartieListComponent {
+
+  @HostBinding('class.w-75') class: boolean = true
 
   public parties!: Observable<Partie[]>
   public partiesLoadEtat : EtatChargement = EtatChargement.LOADING
