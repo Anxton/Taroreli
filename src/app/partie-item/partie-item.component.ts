@@ -18,7 +18,7 @@ export class PartieItemComponent {
 
   public manches!: Observable<Manche[]>
 
-  public mancheLoadEtat: EtatChargement = EtatChargement.LOADING
+  public manchesLoadEtat: EtatChargement = EtatChargement.LOADING
   readonly etatChargement = EtatChargement
 
   constructor(
@@ -29,11 +29,11 @@ export class PartieItemComponent {
     console.log(this.collapsed);
     this.collapsed = !this.collapsed
     if (!this.collapsed) {
-      this.mancheLoadEtat = EtatChargement.LOADING
+      this.manchesLoadEtat = EtatChargement.LOADING
       this.manches = this.mancheService.getManchesFromPartie(this.partie.id)
       this.manches.subscribe({
-        next: manches => this.mancheLoadEtat = EtatChargement.LOADED,
-        error: err => this.mancheLoadEtat = EtatChargement.ERROR
+        next: manches => this.manchesLoadEtat = EtatChargement.LOADED,
+        error: err => this.manchesLoadEtat = EtatChargement.ERROR
       })
     }
   }

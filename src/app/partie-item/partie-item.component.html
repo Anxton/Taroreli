@@ -14,17 +14,17 @@
         </h2>
         <div [id]="'id'+partie.id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" attr.data-bs-parent="#accordion{{partie.id}}">
           <!-- start accordion -->
-          <div *ngIf="mancheLoadEtat==etatChargement.LOADING">
+          <div *ngIf="manchesLoadEtat==etatChargement.LOADING">
             <div class="alert alert-info">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><strong> Chargement en cours...</strong><br> Merci de patienter quelques instants
             </div>
           </div>
-          <div *ngIf="mancheLoadEtat==etatChargement.ERROR">
+          <div *ngIf="manchesLoadEtat==etatChargement.ERROR">
             <div class="alert alert-danger">
               <strong>Service non disponible</strong><br> Veuillez réessayer dans quelques instants
             </div>
           </div>
-          <div *ngIf="mancheLoadEtat==etatChargement.LOADED">
+          <div *ngIf="manchesLoadEtat==etatChargement.LOADED">
 
             <h2> <b>{{ (manches|async)?.length }}</b> manches jouées</h2>
 
