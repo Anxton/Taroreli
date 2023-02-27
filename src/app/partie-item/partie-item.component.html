@@ -1,10 +1,14 @@
 <div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100">
     <div class="card-body">
-      <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i>Partie n°{{partie.id}} </h4>
+      <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i> Partie n°{{partie.id}} </h4>
         <small class="text-muted">{{partie.date}} <i class="fa-solid fa-calendar-days"></i></small>
         <div class="d-flex justify-content-between">
-          <span *ngFor="let joueur of partie.joueurs" class="card-text">{{joueur}}</span>
-
+          <span *ngFor="let joueur of partie.joueurs" class="card-text">
+            <i class="fa-solid fa-user"></i> {{joueur.nom}}
+            <br>
+            <i class="fa-solid fa-burger"></i> {{joueur.score}}
+          </span>
+          <!-- burgir = point -->
         </div>
     </div>
 
@@ -34,26 +38,18 @@
             </div>
 
             <app-partie-item-manche
-                *ngFor="let manche of manches|async"
-                [manche]="manche"></app-partie-item-manche>
+              *ngFor="let manche of manches|async"
+              [manche]="manche">
+            </app-partie-item-manche>
 
-            <!-- <div class="accordion-body">
-              This is the first item's accordion body.
-            </div>
-            <div class="accordion-body">
-              This is the first item's accordion body.
-            </div>
-            <div class="accordion-body">
-              This is the first item's accordion body.
-            </div> -->
           </div>
           <!-- end accordion -->
         </div>
       </div>
     </div>
     <div class="btn-group" role="group" aria-label="Button group name">
-        <button type="button" class="btn btn-primary">Modifier</button>
-        <button type="button" class="btn btn-primary">Supprimer</button>
+        <button type="button" class="btn btn-primary btn-lg" routerLink="/edit/{{partie.id}}"><i class="fa-solid fa-pencil-alt"></i></button>
+        <button type="button" class="btn btn-warning btn-lg" (click)="onSupprime()"><i class="fa-solid fa-trash-can"></i></button>
     </div>
 </div>
 
