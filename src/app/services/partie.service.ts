@@ -13,20 +13,69 @@ export class PartieService {
     {
       id: 1,
       date: new Date(),
-      joueurs: ['Albert', 'Jean', 'Philippe', 'Vincent'],
-      scores: [-11, -11, 33, -11]
+      joueurs:[
+        {
+          "nom": "Albert",
+          "score": -11
+        },
+        {
+          "nom": "Jean",
+          "score": -11
+        },
+        {
+          "nom": "Philippe",
+          "score": 33
+
+        },
+        {
+          "nom": "Vincent",
+          "score": -11
+        }
+      ]
     },
     {
       id: 2,
       date: new Date(),
-      joueurs: ['A', 'B', 'C', 'D'],
-      scores: [-555, 125, 1222, 1]
+      joueurs: [
+        {
+          "nom": "A",
+          "score": -555
+        },
+        {
+          "nom": "B",
+          "score": 125
+        },
+        {
+          "nom": "C",
+          "score": 1222
+        },
+        {
+          "nom": "D",
+          "score": 1
+        }  
+      ]
     },
     {
       id: 3,
       date: new Date(),
-      joueurs: ['1', '2', '3', '4'],
-      scores: [-999, -234, 52, 1]
+      joueurs: [
+        {
+          "nom": "1",
+          "score": -999
+        },
+        {
+          "nom": "2",
+          "score": -234
+        },
+        {
+          "nom": "3",
+          "score": 52
+        },
+        {
+          "nom": "4",
+          "score": 1
+        }
+      ]
     }
   ]
 
