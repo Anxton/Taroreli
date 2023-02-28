@@ -12,11 +12,19 @@ export class MancheService {
   public manches: Manche[] = [
     {
       id: 1,
-      partieId: 1,
-      preneur: 2,
-      ptsPreneur: 33,
-      ptsDefense: -11
-    }
+      idPartie: 1,
+      scores: [0, 0, 0, 0]
+    },
+    {
+      id: 2,
+      idPartie: 1,
+      scores: [-11, -11, 33, -11]
+    },
+    {
+      id: 3,
+      idPartie: 2,
+      scores: [0, 0, 0, 0]
+    },
 
   ]
 
@@ -27,7 +35,11 @@ export class MancheService {
   ) {}
 
   public getManchesFromPartie(idPartie: number): Observable<Manche[]> {
+    // this.manches.forEach(p => {
+    //   this.http.put<Manche>(this.mancheAPI+'/'+p.id, p).subscribe({})
+    // })
     return this.http.get<Manche[]>(this.mancheAPI+'?idPartie='+idPartie)
+
   }
 
   public getManche(id: number): Observable<Manche> {

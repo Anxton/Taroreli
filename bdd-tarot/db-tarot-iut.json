@@ -3,7 +3,7 @@
     {
       "id": 1,
       "date": "2023-02-23T09:28:54.300Z",
-      "joueurs":[
+      "joueurs": [
         {
           "nom": "Albert",
           "score": -11
@@ -15,7 +15,6 @@
         {
           "nom": "Philippe",
           "score": 33
-
         },
         {
           "nom": "Vincent",
@@ -42,7 +41,7 @@
         {
           "nom": "D",
           "score": 1
-        }  
+        }
       ]
     },
     {
@@ -68,5 +67,36 @@
       ]
     }
   ],
-  "manches": []
+  "manches": [
+    {
+      "id": 1,
+      "idPartie": 1,
+      "scores": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "idPartie": 1,
+      "scores": [
+        -11,
+        -11,
+        33,
+        -11
+      ]
+    },
+    {
+      "id": 3,
+      "idPartie": 2,
+      "scores": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
 }
