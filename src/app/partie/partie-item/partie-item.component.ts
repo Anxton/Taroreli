@@ -1,11 +1,12 @@
-import { PartieService } from './../services/partie.service';
-import { EtatChargement } from './../models/loader';
-import { Manche } from './../models/manche';
-import { Observable } from 'rxjs';
-import { MancheService } from './../services/manche.service';
-import { Component, Input } from '@angular/core';
-import { Partie } from '../models/partie';
+import { MancheService } from './../../services/manche.service';
+import { PartieService } from './../../services/partie.service';
 import { Router } from '@angular/router';
+import { EtatChargement } from './../../models/loader';
+import { Manche } from './../../models/manche';
+import { Observable } from 'rxjs';
+import { Partie } from './../../models/partie';
+import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-partie-item',

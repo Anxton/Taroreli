@@ -1,3 +1,4 @@
+import { Partie } from '../../models/partie';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./partie-edit.component.css']
 })
 export class PartieEditComponent {
-
+  public partie: Partie = new Partie()
 }

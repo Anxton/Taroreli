@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
-import { Partie } from './../models/partie';
-import { PartieService } from './../services/partie.service';
+import { PartieService } from './../../services/partie.service';
+import { EtatChargement } from './../../models/loader';
+import { Partie } from './../../models/partie';
 import { Component, HostBinding } from '@angular/core';
-import { EtatChargement } from '../models/loader';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-partie-list',

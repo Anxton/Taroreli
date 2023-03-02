@@ -1,5 +1,5 @@
-import { PartieEditComponent } from './partie-edit/partie-edit.component';
-import { PartieListComponent } from './partie-list/partie-list.component';
+import { PartieEditComponent } from './partie/partie-edit/partie-edit.component';
+import { PartieListComponent } from './partie/partie-list/partie-list.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';

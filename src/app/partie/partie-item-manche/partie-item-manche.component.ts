@@ -1,5 +1,5 @@
+import { Manche } from './../../models/manche';
 import { Component, Input } from '@angular/core';
-import { Manche } from '../models/manche';
 
 @Component({
   selector: 'app-partie-item-manche',
