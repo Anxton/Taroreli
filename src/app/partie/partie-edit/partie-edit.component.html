@@ -1,5 +1,6 @@
 <button type="button" class="btn btn-primary" routerLink="/" style="transform: translateY(-20px);"><i class="fas fa-long-arrow-alt-left"></i></button>
-<h2>Nouvelle partie</h2>
+<h2 *ngIf="!partie.id">Nouvelle partie</h2>
+<h2 *ngIf="partie.id">Modification d'une partie</h2>
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>

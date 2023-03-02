@@ -10,8 +10,8 @@
   </div>
 </div>
 <div *ngIf="partiesLoadEtat==etatChargement.LOADED">
-
-  <h2> <b>{{ (parties|async)?.length }}</b> parties jouées</h2><br>
+  <h2>Historique</h2>
+  <h3> <b>{{ (parties|async)?.length }}</b> parties jouées</h3><br>
 
   <app-partie-item [partie]="partie" *ngFor="let partie of (parties|async)"></app-partie-item>
 
