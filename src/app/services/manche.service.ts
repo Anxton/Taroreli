@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from "src/environments/environment";
 import { Observable } from 'rxjs';
+import { Partie } from '../models/partie';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,9 @@ export class MancheService {
 
   public deleteManche(manche: Manche): Observable<Manche> {
     return this.http.delete<Manche>(this.mancheAPI+'/'+manche.id)
+  }
+
+  public deleteManchesFromPartie(idPartie: number): Observable<Manche[]> {
+    return this.http.delete<Manche[]>(this.mancheAPI+'?idPartie='+idPartie)
   }
 }

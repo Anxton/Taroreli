@@ -1,19 +1,50 @@
-<button type="button" class="btn btn-primary" routerLink="/" style="transform: translateY(-20px);"><i class="fas fa-long-arrow-alt-left"></i></button>
-<h2 *ngIf="!partie.id">Nouvelle partie</h2>
-<h2 *ngIf="partie.id">Modification d'une partie</h2>
-<ul class="nav nav-tabs" role="tablist">
+<div *ngIf="!loading">
+  <button type="button" class="btn btn-primary mb-3" routerLink="/"><i class="fas fa-long-arrow-alt-left"></i></button>
+  <h2 *ngIf="!partie.id">Nouvelle partie</h2>
+  <h2 *ngIf="partie.id">Modification d'une partie</h2>
+  <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
-      <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+      <a class="nav-link active" data-bs-toggle="tab" href="#manches" aria-selected="true" role="tab">Manches</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Profile</a>
+      <a class="nav-link" data-bs-toggle="tab" href="#joueurs" aria-selected="false" role="tab" tabindex="-1">Joueurs</a>
     </li>
   </ul>
-  <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active show" id="home" role="tabpanel">
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+  <div id="myTabContent" class="tab-content py-3">
+    <div class="tab-pane fade active show" id="manches" role="tabpanel">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-column gap-3">
+          <button type="button" class="btn btn-outline-primary" (click)="onNewManche()">Nouvelle manche</button>
+          <div *ngIf="manchesOld.length > 0" class="btn-group-vertical">
+            <ng-container *ngFor="let manche of manchesOld; let i=index">
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio{{i+1}}" autocomplete="off" checked="">
+              <label class="btn btn-outline-primary" for="btnradio{{i+1}}">Manche {{i+1}}</label>
+            </ng-container>
+          </div>
+        </div>
+
+        <div>
+          manche
+        </div>
+      </div>
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel">
-      <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+    <div class="tab-pane fade" id="joueurs" role="tabpanel">
+      
+        <label for="j1" class="form-label">Joueur 1</label>
+        <input [(ngModel)]="partie.joueurs[0].nom" type="text" class="form-control" name="j1" id="j1" >
+        
+        <label for="j2" class="form-label">Joueur 2</label>
+        <input [(ngModel)]="partie.joueurs[1].nom" type="text" class="form-control" name="j2" id="j2">
+
+        <label for="j3" class="form-label">Joueur 3</label>
+        <input [(ngModel)]="partie.joueurs[2].nom" type="text" class="form-control" name="j3" id="j3">
+        
+        <label for="j4" class="form-label">Joueur 4</label>
+        <input [(ngModel)]="partie.joueurs[3].nom" type="text" class="form-control" name="j4" id="j4">
+        
+  
     </div>
   </div>
+  <button *ngIf="!partie.id" class="btn btn-success" (click)="onSubmit()" >Créer cette partie</button>
+  <button *ngIf="partie.id"  class="btn btn-success" (click)="onSubmit()" >Modifier cette partie</button>
+</div>

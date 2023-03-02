@@ -1,3 +1,4 @@
+import { MancheService } from './manche.service';
 import { Partie } from './../models/partie';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -82,7 +83,8 @@ export class PartieService {
   readonly partieAPI = environment.apiUrl + "/parties"
 
   constructor(
-    private http : HttpClient
+    private http : HttpClient,
+    private mancheService: MancheService
   ) {}
 
   public getParties(): Observable<Partie[]> {

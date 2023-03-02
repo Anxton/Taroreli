@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: MainMenuComponent },
   { path: 'new', component: PartieEditComponent },
   { path: 'history', component: PartieListComponent },
+  { path: ':id', component: PartieEditComponent },
 ];
 
 @NgModule({

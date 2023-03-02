@@ -1,4 +1,4 @@
-<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100">
+<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100" (click)="confirmDelete = false">
     <div class="card-body">
       <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i> Partie n°{{partie.id}} </h4>
         <small class="text-muted">{{partie.date}} <i class="fa-solid fa-calendar-days"></i></small>
@@ -48,9 +48,11 @@
       </div>
     </div>
     <div class="btn-group" role="group" aria-label="Button group name">
-      <button type="button" class="btn btn-primary btn-lg" routerLink="/edit/{{partie.id}}"><i class="fa-solid fa-pencil-alt"></i></button>
-      <button type="button" class="btn btn-warning btn-lg" (click)="onSupprime()"><i class="fa-solid fa-trash-can"></i></button>
+      <button type="button" class="btn btn-primary btn-lg" routerLink="/{{partie.id}}"><i class="fa-solid fa-pencil-alt"></i></button>
+      <button type="button" class="btn btn-lg" [ngClass]="{'btn-warning': confirmDelete==false, 'btn-danger': confirmDelete == true}" (click)="onSupprime($event)"
+        data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-title="Etes-vous sûrs de vouloir supprimer cette partie ?">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
     </div>
 </div>
-
-

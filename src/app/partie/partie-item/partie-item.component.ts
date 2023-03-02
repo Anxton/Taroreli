@@ -24,6 +24,8 @@ export class PartieItemComponent {
   public manchesLoadEtat: EtatChargement = EtatChargement.LOADING
   readonly etatChargement = EtatChargement
 
+  public confirmDelete: boolean = false
+
   constructor(
     private router: Router,
     private partieService: PartieService,
@@ -42,13 +44,24 @@ export class PartieItemComponent {
       })
     }
   }
+  onOtherClicked(event: MouseEvent): void {
+    this.confirmDelete = false
+  }
 
-  onSupprime() : void {
-    if ( confirm("Voulez-vous réellement supprimer cette partie ?") ) {
+  onSupprime(event: MouseEvent): void {
+    event.stopPropagation()
+    if (!this.confirmDelete) {
+      this.confirmDelete = true
+    } else if ( this.confirmDelete ) {
+      this.mancheService.deleteManchesFromPartie(this.partie.id).subscribe({
+        next: t => { },
+        error: err => { console.log("Erreur suppression manches : ", err) }
+      })
       this.partieService.deletePartie(this.partie).subscribe({
         next: t => {
           this.router.navigateByUrl('/').then(()=>this.router.navigateByUrl('/history'))
-        }
+        },
+        error: err => { console.log("Erreur suppression partie : ", err) }
       })
     }
   }
