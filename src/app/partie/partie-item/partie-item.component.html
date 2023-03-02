@@ -51,7 +51,7 @@
       <button type="button" class="btn btn-primary btn-lg" routerLink="/{{partie.id}}"><i class="fa-solid fa-pencil-alt"></i></button>
       <button type="button" class="btn btn-lg" [ngClass]="{'btn-warning': confirmDelete==false, 'btn-danger': confirmDelete == true}" (click)="onSupprime($event)"
         data-bs-toggle="tooltip" data-bs-placement="bottom"
-        data-bs-title="Etes-vous sûrs de vouloir supprimer cette partie ?">
+        data-bs-original-title="Etes-vous sûrs de vouloir supprimer cette partie ?">
         <i class="fa-solid fa-trash-can"></i>
       </button>
     </div>
