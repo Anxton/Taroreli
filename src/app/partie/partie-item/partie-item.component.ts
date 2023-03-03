@@ -42,7 +42,6 @@ export class PartieItemComponent implements AfterViewInit {
   }
 
   public loadManches() {
-    console.log(this.collapsed);
     this.collapsed = !this.collapsed
     if (!this.collapsed) {
       this.manchesLoadEtat = EtatChargement.LOADING
