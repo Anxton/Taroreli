@@ -3,6 +3,6 @@
     "json-server": "^0.17.2"
   },
   "scripts": {
-    "start": "json-server --watch db-tarot-iut.json"
+    "start": "json-server db-tarot-iut.json"
   }
 }

@@ -65,28 +65,6 @@
           "score": 1
         }
       ]
-    },
-    {
-      "id": 4,
-      "date": "2023-03-03T04:58:49.797Z",
-      "joueurs": [
-        {
-          "nom": "a",
-          "score": 0
-        },
-        {
-          "nom": "b",
-          "score": 0
-        },
-        {
-          "nom": "c",
-          "score": 0
-        },
-        {
-          "nom": "d",
-          "score": 0
-        }
-      ]
     }
   ],
   "manches": [
