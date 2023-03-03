@@ -36,12 +36,29 @@
             <div class="accordion-body">
 
               <h4> <b>{{ (manches|async)?.length }}</b> manches jouées</h4>
-              <hr>
+              <!-- <hr> -->
 
-              <div class="d-flex flex-column gap-2">
-                
-                <div *ngFor="let manche of manches|async; let i=index">
-                  Manche {{i+1}}:
+              <div class="d-flex flex-column gap-3 text-center">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col" *ngFor="let joueur of partie.joueurs">{{joueur.nom}}</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr *ngFor="let manche of manches|async; let i=index">
+                      <th scope="col">{{i+1}}</th>
+                      <td *ngFor="let score of manche.scores">
+                        {{score}}
+                      </td>
+                    </tr>
+                  </tbody>
+
+
+                </table>
+                <div class="p-2" *ngFor="let manche of manches|async; let i=index">
+                    Manche {{i+1}}:
                   <br>
                   <div class="d-flex justify-content-between">
                     <span *ngFor="let score of manche.scores">
