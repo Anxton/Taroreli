@@ -5,15 +5,15 @@ import { EtatChargement } from './../../models/loader';
 import { Manche } from './../../models/manche';
 import { Observable } from 'rxjs';
 import { Partie } from './../../models/partie';
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewChecked, AfterViewInit, Renderer2, OnInit } from '@angular/core';
 
-
+declare var $: any
 @Component({
   selector: 'app-partie-item',
   templateUrl: './partie-item.component.html',
   styleUrls: ['./partie-item.component.css']
 })
-export class PartieItemComponent {
+export class PartieItemComponent implements AfterViewInit {
   
   @Input() partie!: Partie
 
@@ -29,8 +29,17 @@ export class PartieItemComponent {
   constructor(
     private router: Router,
     private partieService: PartieService,
-    private mancheService: MancheService
+    private mancheService: MancheService,
+    private renderer: Renderer2
   ) { }
+
+  ngAfterViewInit(): void {
+    // Clic en dehors du composant
+    this.renderer.listen('window', 'click',(e:Event)=>{
+      this.confirmDelete = false
+      $('#btnSuppr'+this.partie.id).tooltip('hide')
+    })
+  }
 
   public loadManches() {
     console.log(this.collapsed);
@@ -44,15 +53,14 @@ export class PartieItemComponent {
       })
     }
   }
-  onOtherClicked(event: MouseEvent): void {
-    this.confirmDelete = false
-  }
 
   onSupprime(event: MouseEvent): void {
     event.stopPropagation()
     if (!this.confirmDelete) {
+      $('#btnSuppr'+this.partie.id).tooltip('show')
       this.confirmDelete = true
     } else if ( this.confirmDelete ) {
+      $('#btnSuppr'+this.partie.id).tooltip('dispose')
       this.mancheService.deleteManchesFromPartie(this.partie.id).subscribe({
         next: t => { },
         error: err => { console.log("Erreur suppression manches : ", err) }

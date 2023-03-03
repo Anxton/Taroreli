@@ -1,4 +1,4 @@
-<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100" (click)="confirmDelete = false">
+<div class="card d-flex justify-content-between p-3 pt-0 mb-3 gap-2 w-100">
     <div class="card-body">
       <h4 class="card-title text-center"><i class="fa-solid fa-gamepad"></i> Partie n°{{partie.id}} </h4>
         <small class="text-muted">{{partie.date}} <i class="fa-solid fa-calendar-days"></i></small>
@@ -12,14 +12,14 @@
         </div>
     </div>
 
-    <div class="accordion accordion-flush" [id]="'accordion'+partie.id">
+    <div class="accordion accordion-flush" id="accordion{{partie.id}}">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" (click)="loadManches()" type="button" data-bs-toggle="collapse" attr.data-bs-target="#id{{partie.id}}" aria-expanded="true" attr.aria-controls="{{partie.id}}">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" (click)="loadManches()" type="button" data-bs-toggle="collapse" attr.data-bs-target="#id{{partie.id}}" attr.aria-controls="{{partie.id}}">
             Manches
           </button>
         </h2>
-        <div [id]="'id'+partie.id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" attr.data-bs-parent="#accordion{{partie.id}}">
+        <div id="id{{partie.id}}" class="accordion-collapse collapse" attr.data-bs-parent="#accordion{{partie.id}}">
           <!-- start accordion -->
           <div *ngIf="manchesLoadEtat==etatChargement.LOADING">
             <div class="alert alert-info">
@@ -34,13 +34,20 @@
           <div *ngIf="manchesLoadEtat==etatChargement.LOADED">
 
             <div class="accordion-body">
-              <h4> <b>{{ (manches|async)?.length }}</b> manches jouées</h4>
-            </div>
 
-            <app-partie-item-manche
-              *ngFor="let manche of manches|async"
-              [manche]="manche">
-            </app-partie-item-manche>
+              <h4> <b>{{ (manches|async)?.length }}</b> manches jouées</h4>
+
+              <div *ngFor="let manche of manches|async">
+                Manche {{manche.id}}:
+                <br>
+                <div class="d-flex justify-content-between">
+                  <span *ngFor="let score of manche.scores">
+                    <i class="fa-solid fa-burger"></i> {{score}}
+                  </span>
+                </div>
+              </div>
+              
+            </div>
 
           </div>
           <!-- end accordion -->
@@ -48,9 +55,12 @@
       </div>
     </div>
     <div class="btn-group" role="group" aria-label="Button group name">
-      <button type="button" class="btn btn-primary btn-lg" routerLink="/{{partie.id}}"><i class="fa-solid fa-pencil-alt"></i></button>
-      <button type="button" class="btn btn-lg" [ngClass]="{'btn-warning': confirmDelete==false, 'btn-danger': confirmDelete == true}" (click)="onSupprime($event)"
-        data-bs-toggle="tooltip" data-bs-placement="bottom"
+      <button type="button" class="btn btn-primary btn-lg" routerLink="/{{partie.id}}">
+        <i class="fa-solid fa-pencil-alt"></i>
+      </button>
+      <button id="btnSuppr{{partie.id}}" type="button" class="btn btn-lg" (click)="onSupprime($event)"
+        [ngClass]="{'btn-warning': confirmDelete==false, 'btn-danger': confirmDelete == true}"
+        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="manual"
         data-bs-original-title="Etes-vous sûrs de vouloir supprimer cette partie ?">
         <i class="fa-solid fa-trash-can"></i>
       </button>

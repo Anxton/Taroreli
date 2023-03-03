@@ -8,7 +8,6 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { PartieItemComponent } from './partie/partie-item/partie-item.component';
 import { PartieListComponent } from './partie/partie-list/partie-list.component';
 import { PartieEditComponent } from './partie/partie-edit/partie-edit.component';
-import { PartieItemMancheComponent } from './partie/partie-item-manche/partie-item-manche.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -17,8 +16,7 @@ import { FormsModule } from '@angular/forms';
     MainMenuComponent,
     PartieItemComponent,
     PartieListComponent,
-    PartieEditComponent,
-    PartieItemMancheComponent
+    PartieEditComponent
   ],
   imports: [
     BrowserModule,
