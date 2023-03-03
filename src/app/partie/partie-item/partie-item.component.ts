@@ -42,7 +42,10 @@ export class PartieItemComponent {
       $('#btnSuppr'+this.partie.id).tooltip('disable')
     })
   }
-
+  ngAfterViewInit(): void {
+    // Initialisation tooltip
+    $('#btnSuppr'+this.partie.id).tooltip('disable')
+  }
   ngOnDestroy(): void {
     if (this.listenerFn) {
       this.listenerFn()
