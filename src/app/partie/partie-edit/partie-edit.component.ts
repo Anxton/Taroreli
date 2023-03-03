@@ -13,10 +13,12 @@ import { Component, HostBinding } from '@angular/core';
 })
 export class PartieEditComponent {
 
-  @HostBinding('class.w-75') private b: boolean = true
+  @HostBinding('class.w-75') class1: boolean = true
 
   public partie: Partie = new Partie()
   public manches: Manche[] = []
+
+  public selectedManche!: Manche
 
   public loading: boolean = true
 

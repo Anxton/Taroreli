@@ -1,4 +1,4 @@
-<div *ngIf="!loading">
+<div class="h-100" *ngIf="!loading">
   <button type="button" class="btn btn-primary mb-3" routerLink="/"><i class="fas fa-long-arrow-alt-left"></i></button>
   <h2 *ngIf="!partie.id">Nouvelle partie</h2>
   <h2 *ngIf="partie.id">Modification d'une partie</h2>
@@ -10,22 +10,20 @@
       <a class="nav-link" data-bs-toggle="tab" href="#joueurs" aria-selected="false" role="tab" tabindex="-1">Joueurs</a>
     </li>
   </ul>
-  <div id="myTabContent" class="tab-content py-3">
+  <div id="myTabContent" class="tab-content py-3 h-100">
     <div class="tab-pane fade active show" id="manches" role="tabpanel">
       <div class="d-flex justify-content-between">
         <div class="d-flex flex-column gap-3">
           <button type="button" class="btn btn-outline-primary" (click)="onNewManche()">Nouvelle manche</button>
           <div *ngIf="manches.length > 0" class="btn-group-vertical">
             <ng-container *ngFor="let manche of manches; let i=index">
-              <input type="radio" class="btn-check" name="btnradio" id="btnradio{{i+1}}" autocomplete="off" checked="">
+              <input [(ngModel)]="selectedManche" type="radio" class="btn-check" name="btnradio" id="btnradio{{i+1}}" [value]="manche">
               <label class="btn btn-outline-primary" for="btnradio{{i+1}}">Manche {{i+1}}</label>
             </ng-container>
           </div>
         </div>
 
-        <div>
-          manche
-        </div>
+        <app-partie-manche [manche]="selectedManche"></app-partie-manche>
       </div>
     </div>
     <div class="tab-pane fade" id="joueurs" role="tabpanel">
