@@ -9,6 +9,7 @@ import { PartieItemComponent } from './partie/partie-item/partie-item.component'
 import { PartieListComponent } from './partie/partie-list/partie-list.component';
 import { PartieEditComponent } from './partie/partie-edit/partie-edit.component';
 import { FormsModule } from '@angular/forms';
+import { PartieMancheComponent } from './partie/partie-manche/partie-manche.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     MainMenuComponent,
     PartieItemComponent,
     PartieListComponent,
-    PartieEditComponent
+    PartieEditComponent,
+    PartieMancheComponent
   ],
   imports: [
     BrowserModule,

@@ -15,8 +15,8 @@
       <div class="d-flex justify-content-between">
         <div class="d-flex flex-column gap-3">
           <button type="button" class="btn btn-outline-primary" (click)="onNewManche()">Nouvelle manche</button>
-          <div *ngIf="manchesOld.length > 0" class="btn-group-vertical">
-            <ng-container *ngFor="let manche of manchesOld; let i=index">
+          <div *ngIf="manches.length > 0" class="btn-group-vertical">
+            <ng-container *ngFor="let manche of manches; let i=index">
               <input type="radio" class="btn-check" name="btnradio" id="btnradio{{i+1}}" autocomplete="off" checked="">
               <label class="btn btn-outline-primary" for="btnradio{{i+1}}">Manche {{i+1}}</label>
             </ng-container>

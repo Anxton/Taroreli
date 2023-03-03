@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Manche } from './../../models/manche';
 import { MancheService } from './../../services/manche.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,8 +16,7 @@ export class PartieEditComponent {
   @HostBinding('class.w-75') private b: boolean = true
 
   public partie: Partie = new Partie()
-  public manchesOld: Manche[] = []
-  public manchesNew: Manche[] = []
+  public manches: Manche[] = []
 
   public loading: boolean = true
 
@@ -40,7 +40,7 @@ export class PartieEditComponent {
 
       this.mancheService.getManchesFromPartie(idPartie).subscribe({
         next: manches => {
-          this.manchesOld = [...manches]
+          this.manches = [...manches]
         }
       })
       this.loading = false
@@ -50,17 +50,17 @@ export class PartieEditComponent {
   }
 
   public onNewManche(): void {
-    this.manchesOld.push(new Manche())
+    this.manches.push(new Manche())
   }
 
   public onSubmit(): void {
-    let ObservableAction
+    let observable: Observable<Partie>
     if (this.partie.id) {
-      ObservableAction = this.partieService.updatePartie(this.partie)
+      observable = this.partieService.updatePartie(this.partie)
     } else {
-      ObservableAction = this.partieService.addPartie(this.partie)
+      observable = this.partieService.addPartie(this.partie)
     }
-    ObservableAction.subscribe({
+    observable.subscribe({
       next:  partie=> {
         console.log("Enregistrement OK : ", partie)
         this.router.navigateByUrl("")
@@ -69,6 +69,7 @@ export class PartieEditComponent {
         console.log("ERREUR de sauvegarde : ", err)
       }
     })
-    
   }
+
+
 }
