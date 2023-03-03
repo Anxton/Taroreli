@@ -9,7 +9,7 @@ import { Component, HostBinding, Input } from '@angular/core';
 export class PartieMancheComponent {
   @HostBinding('class.w-75') class: boolean = true
 
-  @Input() manche: Manche = new Manche()
+  @Input() manche!: Manche
 
   // Calcul des points du point de vue du preneur : positif = points preneur | négatif = points défenseur
   public preneur: number = 0

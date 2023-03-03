@@ -22,6 +22,7 @@ export class PartieEditComponent {
 
   public loading: boolean = true
 
+  private newManches: Manche[] = []
 
   constructor(
     private partieService : PartieService,
@@ -52,25 +53,46 @@ export class PartieEditComponent {
   }
 
   public onNewManche(): void {
-    this.manches.push(new Manche())
+    const manche = new Manche(this.partie.id)
+    this.manches.push(manche)
+    this.newManches.push(manche)
   }
 
   public onSubmit(): void {
-    let observable: Observable<Partie>
+    let observableManche: Observable<Manche>
+    this.newManches.forEach(manche => {
+      if (manche.id) {
+        observableManche = this.mancheService.updateManche(manche)
+      } else {
+        observableManche = this.mancheService.addManche(manche)
+      }
+      observableManche.subscribe({
+        next:  manche => {
+          console.log("Enregistrement manche OK : ", manche)
+        },
+        error: err  => {
+          console.log("ERREUR de sauvegarde : ", err)
+        }
+      })
+    });
+
+    let observablePartie: Observable<Partie>
     if (this.partie.id) {
-      observable = this.partieService.updatePartie(this.partie)
+      observablePartie = this.partieService.updatePartie(this.partie)
     } else {
-      observable = this.partieService.addPartie(this.partie)
+      observablePartie = this.partieService.addPartie(this.partie)
     }
-    observable.subscribe({
+    observablePartie.subscribe({
       next:  partie=> {
-        console.log("Enregistrement OK : ", partie)
-        this.router.navigateByUrl("")
+        console.log("Enregistrement partie OK : ", partie)
       },
       error: err  => {
         console.log("ERREUR de sauvegarde : ", err)
       }
     })
+    
+    
+    this.router.navigateByUrl("history")
   }
 
 
