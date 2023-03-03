@@ -73,7 +73,7 @@
       </button>
       <button id="btnSuppr{{partie.id}}" type="button" class="btn btn-lg" (click)="onSupprime($event)"
         [ngClass]="{'btn-warning': confirmDelete==false, 'btn-danger': confirmDelete == true}"
-        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="manual"
+        data-bs-toggle="tooltip" data-bs-placement="bottom"
         data-bs-original-title="Etes-vous sûrs de vouloir supprimer cette partie ?">
         <i class="fa-solid fa-trash-can"></i>
       </button>

@@ -59,7 +59,8 @@ export class MancheService {
     return this.http.delete<Manche>(this.mancheAPI+'/'+manche.id)
   }
 
-  public deleteManchesFromPartie(idPartie: number): Observable<Manche[]> {
-    return this.http.delete<Manche[]>(this.mancheAPI+'?idPartie='+idPartie)
-  }
+  // ne fonctionne pas avec le serveur json fourni
+  // public deleteManchesFromPartie(idPartie: number): Observable<Manche[]> {
+  //   return this.http.delete<Manche[]>(this.mancheAPI+'?idPartie='+idPartie)
+  // }
 }

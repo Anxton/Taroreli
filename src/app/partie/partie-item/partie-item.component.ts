@@ -13,7 +13,7 @@ declare var $: any
   templateUrl: './partie-item.component.html',
   styleUrls: ['./partie-item.component.css']
 })
-export class PartieItemComponent implements AfterViewInit {
+export class PartieItemComponent {
   
   @Input() partie!: Partie
 
@@ -25,6 +25,7 @@ export class PartieItemComponent implements AfterViewInit {
   readonly etatChargement = EtatChargement
 
   public confirmDelete: boolean = false
+  private listenerFn!: () => void;
 
   constructor(
     private router: Router,
@@ -33,12 +34,20 @@ export class PartieItemComponent implements AfterViewInit {
     private renderer: Renderer2
   ) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     // Clic en dehors du composant
-    this.renderer.listen('window', 'click',(e:Event)=>{
+    this.listenerFn = this.renderer.listen('window', 'click',(e:Event)=>{
       this.confirmDelete = false
       $('#btnSuppr'+this.partie.id).tooltip('hide')
+      $('#btnSuppr'+this.partie.id).tooltip('disable')
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.listenerFn) {
+      this.listenerFn()
+    }
+    
   }
 
   public loadManches() {
@@ -47,7 +56,9 @@ export class PartieItemComponent implements AfterViewInit {
       this.manchesLoadEtat = EtatChargement.LOADING
       this.manches = this.mancheService.getManchesFromPartie(this.partie.id)
       this.manches.subscribe({
-        next: manches => this.manchesLoadEtat = EtatChargement.LOADED,
+        next: manches => {
+          this.manchesLoadEtat = EtatChargement.LOADED
+        },
         error: err => this.manchesLoadEtat = EtatChargement.ERROR
       })
     }
@@ -56,20 +67,30 @@ export class PartieItemComponent implements AfterViewInit {
   onSupprime(event: MouseEvent): void {
     event.stopPropagation()
     if (!this.confirmDelete) {
+      $('#btnSuppr'+this.partie.id).tooltip('enable')
       $('#btnSuppr'+this.partie.id).tooltip('show')
       this.confirmDelete = true
     } else if ( this.confirmDelete ) {
       $('#btnSuppr'+this.partie.id).tooltip('dispose')
-      this.mancheService.deleteManchesFromPartie(this.partie.id).subscribe({
-        next: t => { },
-        error: err => { console.log("Erreur suppression manches : ", err) }
+
+      // suppression manches
+      this.mancheService.getManchesFromPartie(this.partie.id).subscribe({
+        next: manches => {
+          manches.forEach(manche => {
+            this.mancheService.deleteManche(manche).subscribe({
+              next: manche => { },
+              error: err => { console.log("Erreur suppression manches : ", err) }
+            })
+          })
+        },
       })
+      // suppression partie
       this.partieService.deletePartie(this.partie).subscribe({
-        next: t => {
-          this.router.navigateByUrl('/').then(()=>this.router.navigateByUrl('/history'))
+        next: partie => {
         },
         error: err => { console.log("Erreur suppression partie : ", err) }
       })
+      this.router.navigateByUrl('/').then(()=>this.router.navigateByUrl('/history'))
     }
   }
 }
