@@ -59,37 +59,43 @@ export class PartieEditComponent {
   }
 
   public onSubmit(): void {
-    let observableManche: Observable<Manche>
-    this.newManches.forEach(manche => {
-      if (manche.id) {
-        observableManche = this.mancheService.updateManche(manche)
-      } else {
-        observableManche = this.mancheService.addManche(manche)
-      }
-      observableManche.subscribe({
-        next:  manche => {
-          console.log("Enregistrement manche OK : ", manche)
-        },
-        error: err  => {
-          console.log("ERREUR de sauvegarde : ", err)
-        }
-      })
-    });
-
     let observablePartie: Observable<Partie>
     if (this.partie.id) {
       observablePartie = this.partieService.updatePartie(this.partie)
     } else {
       observablePartie = this.partieService.addPartie(this.partie)
     }
+    // Enregistrement partie
     observablePartie.subscribe({
-      next:  partie=> {
+      next:  partie => {
         console.log("Enregistrement partie OK : ", partie)
+        // récupération de l'id de la partie
+        this.partie = partie
+
+        // Enregistrement des manches ensuite, avec l'id de la nouvelle partie créée
+        let observableManche: Observable<Manche>
+        this.newManches.forEach(manche => {
+          manche.idPartie = this.partie.id
+          if (manche.id) {
+            observableManche = this.mancheService.updateManche(manche)
+          } else {
+            observableManche = this.mancheService.addManche(manche)
+          }
+          observableManche.subscribe({
+            next:  manche => {
+              console.log("Enregistrement manche OK : ", manche)
+            },
+            error: err  => {
+              console.log("ERREUR de sauvegarde manche : ", err)
+            }
+          })
+        })
       },
       error: err  => {
-        console.log("ERREUR de sauvegarde : ", err)
+        console.log("ERREUR de sauvegarde partie : ", err)
       }
     })
+
     
     
     this.router.navigateByUrl("history")
