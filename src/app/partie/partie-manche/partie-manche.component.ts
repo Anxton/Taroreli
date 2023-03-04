@@ -12,10 +12,10 @@ export class PartieMancheComponent {
   @Input() manche!: Manche
 
   // Calcul des points du point de vue du preneur : positif = points preneur | négatif = points défenseur
-  public preneur: number = 0
+  public preneur: number = -1
   public contrat: Contrat = Contrat.PETITE
-  public bouts: number = 0
-  public points: number = 0
+  public bouts: number = -1
+  public points: number = -1
   public pointsPetitAuBout: number = 0
   public pointsPoignee: number = 0
 
