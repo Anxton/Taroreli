@@ -11,10 +11,12 @@
     
     <div class="d-grid gap-2">
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="100" [style]="'width: '+progression+'%;'"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="5" [style]="'width: '+progression*100/5+'%;'"></div>
         </div>
     
         <hr>
+
+        <!-- preneur -->
         <ng-container *ngIf="progression == 0">
 
             <h2>Qui est preneur ?</h2>
@@ -26,10 +28,36 @@
             </ng-container>
             
         </ng-container>
+
+        <!-- contrat -->
+        <ng-container *ngIf="progression == 1">
+
+            <h2>Contrat du preneur</h2>
+            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
+
+                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
+                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                
+            </ng-container>
+            
+        </ng-container>
+
+        <!-- bout -->
+        <ng-container *ngIf="progression == 2">
+
+            <h2>Bouts du preneur</h2>
+            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
+
+                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
+                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                
+            </ng-container>
+            
+        </ng-container>
         
         <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-primary">Précédent</button>
-            <button class="btn btn-primary">Suivant</button>
+            <button class="btn btn-primary" (click)="previous()">Précédent</button>
+            <button class="btn btn-primary" (click)="next()">Suivant</button>
         </div>
     </div>
 

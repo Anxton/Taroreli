@@ -53,6 +53,12 @@ export class PartieMancheComponent {
     console.log(this.manche)
   }
 
+  public previous() {
+    this.progression--
+  }
+  public next() {
+    this.progression++
+  }
 
   public getScorePreneur(): number {
     let scorePreneur: number
