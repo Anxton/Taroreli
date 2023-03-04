@@ -1,3 +1,4 @@
+import { Partie } from './../../models/partie';
 import { Manche } from './../../models/manche';
 import { Component, HostBinding, Input } from '@angular/core';
 
@@ -9,7 +10,10 @@ import { Component, HostBinding, Input } from '@angular/core';
 export class PartieMancheComponent {
   @HostBinding('class.w-75') class: boolean = true
 
+  @Input() partie!: Partie
   @Input() manche!: Manche
+
+  public progression: number = 0
 
   // Calcul des points du point de vue du preneur : positif = points preneur | négatif = points défenseur
   public preneur: number = -1
@@ -33,6 +37,22 @@ export class PartieMancheComponent {
         return 56
     }
   }
+
+  ngOnInit(): void {
+    this.progression = 0
+    this.preneur = -1
+    this.contrat = Contrat.PETITE
+    this.bouts = -1
+    this.points = -1
+    this.pointsPetitAuBout = 0
+    this.pointsPoignee = 0
+  }
+
+  ngOnChanges(): void {
+    this.ngOnInit()
+    console.log(this.manche)
+  }
+
 
   public getScorePreneur(): number {
     let scorePreneur: number

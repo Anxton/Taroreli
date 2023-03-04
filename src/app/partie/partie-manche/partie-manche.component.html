@@ -1,10 +1,40 @@
-<div class="w-100">
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-    </div>
+<ng-container *ngIf="manche.id; else newManche">
+
     id: {{manche.id}}
     <br>
     idPartie: {{manche.idPartie}}
     <br>
     scores: {{manche.scores}}
-</div>
+    
+</ng-container>
+<ng-template #newManche>
+    
+    <div class="d-grid gap-2">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="100" [style]="'width: '+progression+'%;'"></div>
+        </div>
+    
+        <hr>
+        <ng-container *ngIf="progression == 0">
+
+            <h2>Qui est preneur ?</h2>
+            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
+
+                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
+                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                
+            </ng-container>
+            
+        </ng-container>
+        
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-primary">Précédent</button>
+            <button class="btn btn-primary">Suivant</button>
+        </div>
+    </div>
+
+    <!-- <form (ngSubmit)="" #formulaire="ngForm">
+        form
+    </form> -->
+    
+</ng-template>
