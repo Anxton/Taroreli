@@ -57,6 +57,15 @@ export class PartieEditComponent {
     this.manches.push(manche)
   }
 
+  public onSupprimerManche(): void {
+    this.manches.splice(this.manches.indexOf(this.selectedManche), 1)
+    if (this.changedManches.indexOf(this.selectedManche) == -1) {
+      this.selectedManche.idPartie = -1
+      this.changedManches.push(this.selectedManche)
+    }
+    this.setScoresPartie()
+    this.selectedManche = this.manches[0]
+  }
 
   public setScoresPartie(): void {
     this.partie.joueurs.forEach(joueur => {
@@ -86,10 +95,13 @@ export class PartieEditComponent {
         // Enregistrement des manches ensuite, avec l'id de la nouvelle partie créée
         let observableManche: Observable<Manche>
         this.changedManches.forEach(manche => {
-          manche.idPartie = this.partie.id
-          if (manche.id) {
+          if (manche.idPartie == -1) {
+            observableManche = this.mancheService.deleteManche(manche)
+          } else if (manche.id > 0) {
+            manche.idPartie = this.partie.id
             observableManche = this.mancheService.updateManche(manche)
-          } else {
+          } else if (manche.id == 0){
+            manche.idPartie = this.partie.id
             observableManche = this.mancheService.addManche(manche)
           }
           observableManche.subscribe({

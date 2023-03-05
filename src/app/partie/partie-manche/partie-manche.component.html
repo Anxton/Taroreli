@@ -1,10 +1,12 @@
 <ng-container *ngIf="manche.idPartie != -1; else newManche">
 
-    id: {{manche.id}}
-    <br>
-    idPartie: {{manche.idPartie}}
-    <br>
-    scores: {{manche.scores}}
+    <div class="d-flex justify-content-between">
+        <span *ngFor="let joueur of partie.joueurs; let i=index" class="card-text">
+          <i class="fa-solid fa-user"></i> {{joueur.nom}}
+          <br>
+          <i class="fa-solid fa-burger"></i> {{manche.scores[i]}}
+        </span>
+    </div>
     
 </ng-container>
 <ng-template #newManche>

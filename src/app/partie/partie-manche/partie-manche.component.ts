@@ -67,42 +67,30 @@ export class PartieMancheComponent {
     // différence avec les points requis pour gagner
     // si diff est positif ou nul, le preneur est gagnant
     const diff: number = this.points - this.bouts
-    console.log("diff"+diff)
     
-    console.log("this.points"+this.points)
-    console.log("this.pointsRequisSelonBouts"+this.bouts)
 
     // calcul avant contrat
     score = 25 + Math.abs(diff)
 
     
-    console.log("25+diff"+score)
 
     // ajout petit au bout
     if (this.petitAuBout) {
       score += ( (diff >= 0) ? this.ptsPetitAuBout : -this.ptsPetitAuBout)
     }
     
-    console.log("this.ptsPetitAuBout"+this.ptsPetitAuBout)
 
     // ajout contrat
     score = score * this.valeurContrat(this.contrat)
     
-    console.log("contrat"+this.valeurContrat(this.contrat))
     
-    console.log("25+diff+petit*contrat"+score)
 
     // ajout poignee
     if (this.poignee) {
       score += ( (diff >= 0) ? this.ptsPoignee : -this.ptsPoignee)
     }
-    console.log("diff>=0"+ (diff >= 0));
     
-    console.log("POIGNEE "+this.poignee)
-    console.log("POIGNEE AU PRENEUR "+this.poigneeAuPreneur)
-    console.log("POINTS POIGNEE "+this.ptsPoignee)
 
-    console.log("25+diff+petit*contrat + poignee"+score)
 
     // attribution des scores
     for (let index = 0; index < this.manche.scores.length; index++) {
@@ -113,7 +101,6 @@ export class PartieMancheComponent {
       }
     }
 
-    console.log('scr:'+score)
     
   }
 

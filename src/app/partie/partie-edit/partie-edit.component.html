@@ -49,7 +49,10 @@
           <label class="btn" [ngClass]="{'btn-outline-primary': manche.idPartie != -1, 'btn-outline-danger': manche.idPartie == -1}" for="btnradio{{i+1}}">Manche {{i+1}}</label>
         </ng-container>
 
+
       </div>
+      <button *ngIf="this.manches.indexOf(this.selectedManche) != -1" type="button" class="btn btn-outline-danger" (click)="onSupprimerManche()">Supprimer</button>
+      
     </div>
 
     <app-partie-manche *ngIf="selectedManche" [parent]="this" [manche]="selectedManche" [partie]="partie"></app-partie-manche>
