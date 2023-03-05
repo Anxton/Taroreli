@@ -22,7 +22,7 @@ export class PartieEditComponent {
 
   public loading: boolean = true
 
-  private newManches: Manche[] = []
+  public changedManches: Manche[] = []
 
   constructor(
     private partieService : PartieService,
@@ -53,9 +53,20 @@ export class PartieEditComponent {
   }
 
   public onNewManche(): void {
-    const manche = new Manche(this.partie.id)
+    const manche = new Manche(-1)
     this.manches.push(manche)
-    this.newManches.push(manche)
+  }
+
+
+  public setScoresPartie(): void {
+    this.partie.joueurs.forEach(joueur => {
+        joueur.score = 0
+    });
+    this.manches.forEach(manche => {
+        for (let i = 0; i < manche.scores.length; i++) {
+            this.partie.joueurs[i].score += manche.scores[i]
+        }
+    });
   }
 
   public onSubmit(): void {
@@ -74,7 +85,7 @@ export class PartieEditComponent {
 
         // Enregistrement des manches ensuite, avec l'id de la nouvelle partie créée
         let observableManche: Observable<Manche>
-        this.newManches.forEach(manche => {
+        this.changedManches.forEach(manche => {
           manche.idPartie = this.partie.id
           if (manche.id) {
             observableManche = this.mancheService.updateManche(manche)

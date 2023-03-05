@@ -1,5 +1,6 @@
 <div class="h-100" *ngIf="!loading">
-  <button type="button" class="btn btn-primary mb-3" routerLink="/"><i class="fas fa-long-arrow-alt-left"></i></button>
+  <button *ngIf="partie.id" type="button" class="btn btn-primary mb-3" routerLink="/history"><i class="fas fa-long-arrow-alt-left"></i></button>
+  <button *ngIf="!partie.id" type="button" class="btn btn-primary mb-3" routerLink="/"><i class="fas fa-long-arrow-alt-left"></i></button>
   <span class="d-flex justify-content-between align-items-center">
 
     <ng-container *ngIf="partie.id; else newPartie">
@@ -36,6 +37,7 @@
   </div>
 
   <hr>
+
   <h4>Manches</h4>
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column gap-3">
@@ -44,13 +46,13 @@
 
         <ng-container *ngFor="let manche of manches; let i=index">
           <input [(ngModel)]="selectedManche" type="radio" class="btn-check" name="btnradio" id="btnradio{{i+1}}" [value]="manche">
-          <label class="btn btn-outline-primary" for="btnradio{{i+1}}">Manche {{i+1}}</label>
+          <label class="btn" [ngClass]="{'btn-outline-primary': manche.idPartie != -1, 'btn-outline-danger': manche.idPartie == -1}" for="btnradio{{i+1}}">Manche {{i+1}}</label>
         </ng-container>
 
       </div>
     </div>
 
-    <app-partie-manche *ngIf="selectedManche" [manche]="selectedManche" [partie]="partie"></app-partie-manche>
+    <app-partie-manche *ngIf="selectedManche" [parent]="this" [manche]="selectedManche" [partie]="partie"></app-partie-manche>
     
   </div>
 </div>

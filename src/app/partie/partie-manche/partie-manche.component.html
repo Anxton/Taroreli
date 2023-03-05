@@ -1,4 +1,4 @@
-<ng-container *ngIf="manche.id; else newManche">
+<ng-container *ngIf="manche.idPartie != -1; else newManche">
 
     id: {{manche.id}}
     <br>
@@ -9,60 +9,129 @@
 </ng-container>
 <ng-template #newManche>
     
-    <div class="d-grid gap-2">
+    <div class="d-flex flex-column gap-2">
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="5" [style]="'width: '+progression*100/5+'%;'"></div>
         </div>
     
         <hr>
 
-        <!-- preneur -->
-        <ng-container *ngIf="progression == 0">
-
-            <h2>Qui est preneur ?</h2>
-            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
-
-                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
-                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+        <form ngNativeValidate class="d-flex flex-column gap-2" #formulaire="ngForm" (ngSubmit)="onSubmit(formulaire)">
                 
-            </ng-container>
-            
-        </ng-container>
+            <!-- preneur -->
+            <div class="form-group d-grid gap-2" [hidden]="progression != 0">
 
-        <!-- contrat -->
-        <ng-container *ngIf="progression == 1">
+                <h3>Qui est preneur ?</h3>
+                <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
 
-            <h2>Contrat du preneur</h2>
-            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
-
-                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
-                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                    <input ng-required="true" [(ngModel)]="indexPreneur" required type="radio" class="btn-check form-control" name="prn" id="preneur{{i+1}}" [value]="i">
+                    <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                    
+                </ng-container>
                 
-            </ng-container>
-            
-        </ng-container>
+            </div>
 
-        <!-- bout -->
-        <ng-container *ngIf="progression == 2">
+            <!-- contrat -->
+            <div class="form-group d-grid gap-2" [hidden]="progression != 1">
 
-            <h2>Bouts du preneur</h2>
-            <ng-container *ngFor="let joueur of partie.joueurs; let i=index">
+                <h3>Contrat du preneur</h3>
+                <ng-container *ngFor="let contratEntry of contrats|keyvalue; let i=index">
 
-                <input [(ngModel)]="preneur" type="radio" class="btn-check" name="preneur" id="preneur{{i+1}}" [value]="i">
-                <label class="btn btn-outline-primary" for="preneur{{i+1}}">{{joueur.nom}}</label>
+                    <input required [(ngModel)]="contrat" type="radio" class="btn-check form-control" name="ctr" id="contrat{{i+1}}" [value]="contratEntry.value">
+                    <label class="btn btn-outline-primary" for="contrat{{i+1}}">{{contratEntry.value}}</label>
+                    
+                </ng-container>
                 
-            </ng-container>
+            </div>
+
+            <!-- bout -->
+            <div class="form-group d-grid gap-2" [hidden]="progression != 2">
+
+                <h3>Bouts du preneur</h3>
+                <ng-container *ngFor="let bout of [56, 51, 41, 36]; let i=index">
+
+                    <input required [(ngModel)]="bouts" type="radio" class="btn-check form-control" name="bts" id="bouts{{i+1}}" [value]="bout">
+                    <label class="btn btn-outline-primary" for="bouts{{i+1}}">{{i}}</label>
+                    
+                </ng-container>
+                
+            </div>
+
+            <!-- points -->
+            <div class="form-group d-flex flex-column justify-content-center align-items-center" [hidden]="progression != 3">
+
+                <h3>Points du preneur</h3>
+                <input min="0" required [(ngModel)]="points" type="number" class="form-control w-25" name="pts" id="pts">
+                    
+            </div>
+
+            <!-- petit au bout -->
+            <div class="form-group d-grid gap-2" [hidden]="progression != 4">
+
+                <h3>Petit au bout</h3>
+
+                <div class="btn-group">
+
+                    <input required [(ngModel)]="petitAuBout" type="radio" class="btn-check form-control" name="petit" id="petitNon" [value]="false">
+                    <label class="btn btn-outline-primary w-50" for="petitNon">Non</label>
+
+                    <input required [(ngModel)]="petitAuBout" type="radio" class="btn-check form-control" name="petit" id="petitOui" [value]="true">
+                    <label class="btn btn-outline-primary w-50" for="petitOui">Oui</label>
+
+                </div>
+
+                <div [hidden]="!petitAuBout" class="btn-group mb-3">
+                    <input [(ngModel)]="ptsPetitAuBout" type="radio" class="btn-check form-control" name="ptsPetit" id="ptsPetitPreneur" [value]="10">
+                    <label class="btn btn-outline-primary w-50" for="ptsPetitPreneur">Preneur</label>
+
+                    <input [(ngModel)]="ptsPetitAuBout" type="radio" class="btn-check form-control" name="ptsPetit" id="ptsPetitDefenseur" [value]="-10">
+                    <label class="btn btn-outline-primary w-50" for="ptsPetitDefenseur">Défenseur</label>
+                </div>
+                
+            </div>
+
+            <!-- poignees -->
+            <div class="form-group d-grid gap-2" [hidden]="progression != 5">
+                <h3>Poignées</h3>
+
+                <div class="btn-group">
+
+                    <input required [(ngModel)]="poignee" type="radio" class="btn-check form-control" name="poignee" id="poigneeNon" [value]="false">
+                    <label class="btn btn-outline-primary w-50" for="poigneeNon">Non</label>
+
+                    <input required [(ngModel)]="poignee" type="radio" class="btn-check form-control" name="poignee" id="poigneeOui" [value]="true">
+                    <label class="btn btn-outline-primary w-50" for="poigneeOui">Oui</label>
+
+                </div>
+
+                <div [hidden]="!poignee" class="btn-group">
+                    <input [(ngModel)]="poigneeAuPreneur" type="radio" class="btn-check form-control" name="poigneeAuPreneur" id="poigneeAuPreneurOui" [value]="1">
+                    <label class="btn btn-outline-primary w-50" for="poigneeAuPreneurOui">Preneur</label>
+
+                    <input [(ngModel)]="poigneeAuPreneur" type="radio" class="btn-check form-control" name="poigneeAuPreneur" id="poigneeAuPreneurNon" [value]="-1">
+                    <label class="btn btn-outline-primary w-50" for="poigneeAuPreneurNon">Défenseur</label>
+                </div>
+
+                <div [hidden]="!poignee" class="btn-group">
+                    <input [(ngModel)]="ptsPoignee" type="radio" class="btn-check form-control" name="ptsPoignee" id="ptsPoigneeSimple" [value]="poigneeAuPreneur*20">
+                    <label class="btn btn-outline-primary w-50" for="ptsPoigneeSimple">Simple</label>
+
+                    <input [(ngModel)]="ptsPoignee" type="radio" class="btn-check form-control" name="ptsPoignee" id="ptsPoigneeDouble" [value]="poigneeAuPreneur*30">
+                    <label class="btn btn-outline-primary w-50" for="ptsPoigneeDouble">Double</label>
+
+                    <input [(ngModel)]="ptsPoignee" type="radio" class="btn-check form-control" name="ptsPoignee" id="ptsPoigneeTriple" [value]="poigneeAuPreneur*40">
+                    <label class="btn btn-outline-primary w-50" for="ptsPoigneeTriple">Triple</label>
+                </div>
+            </div>
             
-        </ng-container>
-        
-        <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-primary" (click)="previous()">Précédent</button>
-            <button class="btn btn-primary" (click)="next()">Suivant</button>
-        </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <button [disabled]="progression==0" class="btn btn-primary" type="button" (click)="previous()">Précédent</button>
+                <button *ngIf="progression != 5" class="btn btn-primary" type="button" (click)="next()">Suivant</button>
+                <button *ngIf="progression == 5" [disabled]="formulaire.invalid" class="btn btn-success" type="submit">Créer cette manche</button>
+            </div>
+
+            <span *ngIf="erreur" class="badge bg-danger">{{erreur}}</span>
+        </form>
     </div>
-
-    <!-- <form (ngSubmit)="" #formulaire="ngForm">
-        form
-    </form> -->
     
 </ng-template>
